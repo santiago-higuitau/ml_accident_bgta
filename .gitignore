@@ -1,0 +1,8 @@
+.env
+**/__pycache__
+*.parquet
+*.pkl
+**/notebooks/test.ipynb
+src/config/.env
+src/test
+src/test.ipynb
