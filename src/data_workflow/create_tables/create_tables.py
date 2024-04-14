@@ -3,9 +3,11 @@ import sys
 import psycopg2
 from dotenv import load_dotenv
 from urllib.parse import urlparse
+from sqlalchemy import create_engine
+import pandas as pd
 
 
-from config.setup import SetupConfig
+from src.config.setup import SetupConfig
 # from create_tables.dict_tables import TablesConfig
 
 # Function Get Connection
@@ -50,3 +52,26 @@ def create_tble(sql_query):
     """
     """
     execute_query(sql_query)
+
+
+# Función para cargar datos desde postgresql (Provisional)
+def retrieve_all_table_data(table):
+    """
+    """
+    #1. Create Cursor (Driver)
+    connection_db = get_connection()
+    cursor_db = connection_db.cursor()
+
+    #2. Get all data from postgresql
+    sql_query = f"""
+        SELECT * FROM {table}
+    """
+    #3. Execute query
+    cursor_db.execute(sql_query)
+    data = cursor_db.fetchall()
+
+    #4. Close connection
+    cursor_db.close()
+
+    #3. Get table
+    return pd.DataFrame(data, columns=[desc[0] for desc in cursor_db.description])

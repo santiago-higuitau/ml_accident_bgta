@@ -1,4 +1,4 @@
-from config.setup import SetupConfig
+from src.config.setup import SetupConfig
 
 
 # Diccionario SQL Query
@@ -23,8 +23,8 @@ class TablesConfig:
             FECHA_HORA_ACC TIMESTAMP,
             LATITUD FLOAT(4),
             LONGITUD FLOAT(4),
-            CIV N(14, 2),
-            PK_CALZADA N(10, 2)
+            CIV VARCHAR(100),
+            PK_CALZADA VARCHAR(100)
         )
     """
 
@@ -106,7 +106,7 @@ class TablesConfig:
             TIPO VARCHAR(30),
             TIPO_CAUSA VARCHAR(100),
             CODIGO VARCHAR(100),
-            CODIGO_AC_VH VARCHAR(100),
+            CODIGO_AC_VH VARCHAR(100)
         )
     """
 

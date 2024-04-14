@@ -6,7 +6,7 @@ import threading
 import concurrent.futures
 
 
-from config.setup import SetupConfig
+from src.config.setup import SetupConfig
 
 
 
@@ -20,7 +20,7 @@ def build_endpoint(batch_size:int, offset:int, layer:int):
     - offset: El número de pasos hacia adelante que nos moveremos
     - layer: id de la capa a la cual accederemos
     """
-    assert batch_size <= SetupConfig.BATCH_SIZE, f"El tamaño del lote no puede ser superior a {SetupConfig.BATCH_SIZE}"
+    assert batch_size <= int(SetupConfig.BATCH_SIZE), f"El tamaño del lote no puede ser superior a {SetupConfig.BATCH_SIZE}"
     return f'https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/AccidentalidadAnalisis/FeatureServer/{layer}/query?where=1%3D1&outFields=*&outSR=4326&resultOffset={offset}&resultRecordCount={batch_size}&f=json'
 
 
@@ -44,7 +44,7 @@ def fetch_total_nro_rows_of_the_layer(layer):
     Return:
     - Número total de registros del conjunto de datos de la capa seleccionada!
     """
-    assert layer <= SetupConfig.NRO_LAYERS, f"La capa ingresada no está disponible, por favor revisar la documentación de la función para ver las capas disponibles!"
+    assert layer <= int(SetupConfig.NRO_LAYERS), f"La capa ingresada no está disponible, por favor revisar la documentación de la función para ver las capas disponibles!"
     
     # Set endpoint
     end_point_recount = f'https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/AccidentalidadAnalisis/FeatureServer/{layer}/query?where=1%3D1&outFields=*&returnCountOnly=true&outSR=4326&f=json'
@@ -52,6 +52,7 @@ def fetch_total_nro_rows_of_the_layer(layer):
     # Make request and decode response
     total_rows_response = requests.get(end_point_recount)
     total_rows_json = total_rows_response.json()
+
     
     return total_rows_json['count']
 
@@ -159,6 +160,7 @@ def extract_data_raw_service(layer:int, batch_size:int=2000, offset_initial:int=
     
     # Get List of the endpoints
     list_endpoints = get_total_endpoints(layer, batch_size, offset_initial)
+
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor: # Limitamos a 10 hilos concurrentes
         responses = executor.map(make_request_to_api, list_endpoints)
