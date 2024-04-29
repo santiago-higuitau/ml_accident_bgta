@@ -6,7 +6,7 @@ authors = ["sancho3010 <santiagohiguita@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<=3.12"
+python = ">=3.9,<=3.12.3"
 pandas = "^2.2.1"
 ipykernel = "^6.29.4"
 requests = "^2.31.0"
