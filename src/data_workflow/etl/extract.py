@@ -119,7 +119,7 @@ def get_total_endpoints(layer:int, batch_size:int=2000, offset_initial:int=0):
 
         # Get pages
         list_endpoints = []
-        for nro in range(nro_requests):
+        for _ in range(nro_requests):
             # Build Endpoint
             end_point_layer = build_endpoint(batch_size, offset_initial, layer)
 
