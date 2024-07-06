@@ -6,7 +6,7 @@ authors = ["sancho3010 <santiagohiguita@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<=3.12.3"
+python = ">=3.9,<3.9.7 || >3.9.7,<3.11"
 pandas = "^2.2.1"
 ipykernel = "^6.29.4"
 requests = "^2.31.0"
@@ -19,6 +19,10 @@ xgboost = "^2.0.3"
 scikit-learn = "^1.4.2"
 graphviz = "^0.20.3"
 lightgbm = "^4.3.0"
+streamlit = "^1.36.0"
+streamlit-folium = "^0.21.0"
+fastapi = "^0.111.0"
+pydantic = "^2.8.2"
 
 
 [build-system]
