@@ -1,5 +1,6 @@
 
 import os
+import zipfile
 import pickle
 from datetime import datetime, time
 import locale
@@ -13,8 +14,8 @@ sys.path.append(os.getcwd())
 from src.frontend.config import config
 from src.model.model import ModelTuner
 
-with open(f'{os.getcwd()}/src/model/best_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+# Cargar modelo
+model = config.load_model_from_zip(f'{os.getcwd()}/src/model/best_model.zip', 'best_model.pkl')
 
 # Establecer la configuración regional a español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')

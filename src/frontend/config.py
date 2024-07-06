@@ -1,5 +1,8 @@
 """Module: Config Definition"""
 
+import os
+import zipfile
+import pickle
 from datetime import time, datetime
 import streamlit as st
 
@@ -36,6 +39,14 @@ class ConfigFront:
     # Función para actualizar estado de sesión
     def update_session_state(self, key, value):
         st.session_state.input_data[key] = value
+    
+    def load_model_from_zip(self, zip_path, model_filename):
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extract(model_filename)
+        with open(model_filename, 'rb') as file:
+            model = pickle.load(file)
+        os.remove(model_filename)
+        return model
 
 # Instance Config
 config = ConfigFront()
