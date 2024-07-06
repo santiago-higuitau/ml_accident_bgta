@@ -5,3 +5,5 @@
 src/config/.env
 src/test
 src/test.ipynb
+src/data
+src/data/data_prepared.csv
